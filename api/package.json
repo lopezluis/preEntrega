@@ -1,0 +1,34 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "API base para administrar los datos que simularían la tabla products.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "monitor": "nodemon api src/index.js",
+    "productsH": "../productos -h",
+    "productsV": "../productos -v",
+    "productsGET": "../productos GET products",
+    "productsGET5": "../productos GET products/5",
+    "productsPOST": "../productos POST products Dulce\\x20de\\x20membrillo\\x20500\\x20grs. Almacén 1.8 23 Dulciora",
+    "productsPOST2": "../productos POST products Yogurt\\x20bebible\\x20frutilla\\x201L Lácteos 2.5 85 La\\x20Serenísima",
+    "productsPUT": "../productos PUT 1 Leche\\x20entera\\x201l Lácteos 1.5 120 La\\x20Serenísima",
+    "productsDELETE5": "../productos DELETE products/5",
+    "test": "echo \"Error: no tenemos más script de test aún.\" > /dev/stderr"
+  },
+  "keywords": [
+    "API",
+    "products"
+  ],
+  "author": "Luis Fernando López",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "morgan": "^1.12.1",
+    "nodemon": "^3.1.14"
+  }
+}

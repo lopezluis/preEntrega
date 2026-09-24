@@ -1,6 +1,15 @@
 async function esIndiceRegistroValido (indice)
 {
-    const respuesta = await fetch ('https://www.luislopez.com.ar:3000/api/productos');
+    let respuesta = {};
+    try
+    {
+        respuesta = await fetch ('https://www.luislopez.com.ar:3000/api/productos');
+    }
+    catch (error)
+    {
+        console.error(`No se lograron obtener los productos desde la API para checkear si el indice dado es válido. Probablemente no se encuentre operando, contacte al soporte técnico. Error: ${error.message}`);
+        process.exit (1);
+    }
     const resultado = await respuesta.json();
     const productos = resultado.contenido;
     let i = 0;
@@ -120,7 +129,16 @@ while (indiceArgumento < process.argv.length)
         case 'GET':
             if ((process.argv[indiceArgumento + 1] === 'products') && (process.argv.length === 4))
             {
-                const respuesta = await fetch ('https://www.luislopez.com.ar:3000/api/productos');
+                let respuesta = {};
+                try
+                {
+                    respuesta = await fetch ('https://www.luislopez.com.ar:3000/api/productos');
+                }
+                catch (error)
+                {
+                    console.error(`No se lograron obtener los productos desde la API. Probablemente no se encuentre operando, contacte al soporte técnico. Error: ${error.message}`);
+                    process.exit (1);
+                }
                 const resultado = await respuesta.json();
                 console.table(resultado.contenido);
             }
@@ -129,7 +147,16 @@ while (indiceArgumento < process.argv.length)
                 if (((process.argv[indiceArgumento + 1]).slice(0, 9) == 'products/') && (process.argv.length === 4))
                 {
                     const indiceRegistro = parseInt(process.argv[indiceArgumento + 1].slice(9), 10);
-                    const respuesta = await fetch (`https://www.luislopez.com.ar:3000/api/productos/${indiceRegistro}`);
+                    let respuesta = {};
+                    try
+                    {
+                        respuesta = await fetch (`https://www.luislopez.com.ar:3000/api/productos/${indiceRegistro}`);
+                    }
+                    catch (error)
+                    {
+                        console.error(`No se logró obtener el producto solicitado desde la API. Probablemente no se encuentre operando, contacte al soporte técnico. Error: ${error.message}`);
+                        process.exit (1);
+                    }
                     if (respuesta.headers.get('content-type').includes('text/html'))
                     {
                         console.log (respuesta);
@@ -160,27 +187,36 @@ while (indiceArgumento < process.argv.length)
                     console.error("Error: El valor dado para el stock es incorrecto.");
                     process.exit (1);
                 }
-                let resultado = await fetch
-                (
-                    'https://www.luislopez.com.ar:3000/api/productos',
-                    {
-                        method: 'POST',
-                        headers:
+                let resultado = {};
+                try
+                {
+                    resultado = await fetch
+                    (
+                        'https://www.luislopez.com.ar:3000/api/productos',
                         {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify
-                        (
+                            method: 'POST',
+                            headers:
                             {
-                                nombre: process.argv[indiceArgumento + 2],
-                                categoria: process.argv[indiceArgumento + 3],
-                                precio: process.argv[indiceArgumento + 4],
-                                stock: process.argv[indiceArgumento + 5],
-                                marca: process.argv[indiceArgumento + 6]
-                            }
-                        )
-                    }
-                );
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify
+                            (
+                                {
+                                    nombre: process.argv[indiceArgumento + 2],
+                                    categoria: process.argv[indiceArgumento + 3],
+                                    precio: process.argv[indiceArgumento + 4],
+                                    stock: process.argv[indiceArgumento + 5],
+                                    marca: process.argv[indiceArgumento + 6]
+                                }
+                            )
+                        }
+                    );
+                }
+                catch (error)
+                {
+                    console.error(`No pudo ser consultada la API para crear el producto nuevo. Probablemente no se encuentre operando. Contacte al soporte técnico. Error: ${error.message}`);
+                    process.exit (1);
+                }
                 const tipo = resultado.headers.get('content-type');
                 if (resultado.headers.get('content-type').includes('text/html'))
                 {
@@ -191,7 +227,15 @@ while (indiceArgumento < process.argv.length)
                 {
                     const producto = await resultado.json ();
                     console.log (`Producto creado correctamente.\n\nProducto: ${producto.nombre}\nCategoria: ${producto.categoria}\nPrecio: ${producto.precio}\nStock: ${producto.stock}\nMarca: ${producto.marca}\n`);
-                    resultado = await fetch ('https://www.luislopez.com.ar:3000/api/productos');
+                    try
+                    {
+                        resultado = await fetch ('https://www.luislopez.com.ar:3000/api/productos');
+                    }
+                    catch (error)
+                    {
+                        console.error(`No pudo ser consultada la API para obtener todos los productos, luego de la creación del producto nuevo. Probablemente no se encuentre operando. Contacte al soporte técnico. Error: ${error.message}`);
+                        process.exit (1);
+                    }
                     const listaProductos = await resultado.json();
                     console.table(listaProductos.contenido);
                 }
@@ -218,7 +262,16 @@ while (indiceArgumento < process.argv.length)
                     process.exit (1);
                 }
                 const indiceRegistro = parseInt(process.argv[indiceArgumento + 1].slice(9), 10);
-                let resultado = await fetch (`https://www.luislopez.com.ar:3000/api/productos/${indiceRegistro}`);
+                let resultado = {};
+                try
+                {
+                    resultado = await fetch (`https://www.luislopez.com.ar:3000/api/productos/${indiceRegistro}`);
+                }
+                catch (error)
+                {
+                    console.error(`No se logró comunicación con la API para modificar el producto indicado. Probáblemante la API no esté operando. Contacte al servicio técnico. Error: ${error.message}`);
+                    process.exit (1);
+                }
                 if (resultado.headers.get('content-type').includes('text/html'))
                 {
                     console.error("Error: El producto indicado a modificar no existe.");
@@ -232,38 +285,62 @@ while (indiceArgumento < process.argv.length)
                 //    console.error("Error: Las modificaciones indicadas al producto no modifican nada, no hay nada para hacer.");
                 //    process.exit (1);
                 //}
-                resultado = await fetch
-                (
-                    `https://www.luislopez.com.ar:3000/api/productos/${indiceRegistro}`,
-                    {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify
-                        (
-                            {
-                                id: indiceRegistro,
-                                nombre: process.argv[indiceArgumento + 2],
-                                categoria: process.argv[indiceArgumento + 3],
-                                precio: numPrecio,
-                                stock: numStock,
-                                marca: process.argv[indiceArgumento + 6]
-                            }
-                        )
-                    }
-                );
-                const respuesta = await fetch (`https://www.luislopez.com.ar:3000/api/productos/${indiceRegistro}`);
-                if (respuesta.headers.get('content-type').includes('text/html'))
+                try
                 {
-                    console.log (respuesta);
+                    await fetch
+                    (
+                        `https://www.luislopez.com.ar:3000/api/productos/${indiceRegistro}`,
+                     {
+                         method: 'PUT',
+                         headers: {
+                             'Content-Type': 'application/json'
+                         },
+                         body: JSON.stringify
+                         (
+                             {
+                                 id: indiceRegistro,
+                                 nombre: process.argv[indiceArgumento + 2],
+                                 categoria: process.argv[indiceArgumento + 3],
+                                 precio: numPrecio,
+                                 stock: numStock,
+                                 marca: process.argv[indiceArgumento + 6]
+                             }
+                         )
+                     }
+                    );
+                }
+                catch (error)
+                {
+                    console.error(`No se logró comunicación con la API para efectivizar la modificación del producto indicado. Probáblemante la API no esté operando. Contacte al servicio técnico. Error: ${error.message}`);
+                    process.exit (1);
+                }
+                try
+                {
+                    resultado = await fetch (`https://www.luislopez.com.ar:3000/api/productos/${indiceRegistro}`);
+                }
+                catch (error)
+                {
+                    console.error(`No se logró comunicación con la API para volver a obtener el producto modificado. Probáblemante la API no esté operando. Contacte al servicio técnico. Error: ${error.message}`);
+                    process.exit (1);
+                }
+                if (resultado.headers.get('content-type').includes('text/html'))
+                {
+                    console.log (resultado);
                 }
                 else
                 {
-                    const producto = await respuesta.json ();
+                    const producto = await resultado.json ();
                     console.log (`Producto modificado correctamente.\n\nProducto: ${producto.nombre}\nCategoria: ${producto.categoria}\nPrecio: ${producto.precio}\nStock: ${producto.stock}\nMarca: ${producto.marca}`);
                 }
-                resultado = await fetch ('https://www.luislopez.com.ar:3000/api/productos');
+                try
+                {
+                    resultado = await fetch ('https://www.luislopez.com.ar:3000/api/productos');
+                }
+                catch (error)
+                {
+                    console.error(`No se logró comunicación con la API para obtener todos los productos luego de la modificación. Probáblemante la API no esté operando. Contacte al servicio técnico. Error: ${error.message}`);
+                    process.exit (1);
+                }
                 const listaProductos = await resultado.json();
                 console.table(listaProductos.contenido);
             }
@@ -283,13 +360,22 @@ while (indiceArgumento < process.argv.length)
                     console.error (`El registro con identificador "${indiceRegistro}", no existe.`);
                     process.exit (1);
                 }
-                let resultado = await fetch
-                (
-                    `https://www.luislopez.com.ar:3000/api/productos/${indiceRegistro}`,
-                    {
-                        method: 'DELETE'
-                    }
-                );
+                let resultado = {};
+                try
+                {
+                    resultado = await fetch
+                    (
+                        `https://www.luislopez.com.ar:3000/api/productos/${indiceRegistro}`,
+                        {
+                            method: 'DELETE'
+                        }
+                    );
+                }
+                catch (error)
+                {
+                    console.error (`No se logró comunicación con la API para eliminar el producto indicado. Probáblemante la API no esté operando. Contacte al servicio técnico. Error: "${error.message}".`);
+                    process.exit (1);
+                }
                 if (await esIndiceRegistroValido (indiceRegistro) == -1)
                 {
                     console.log (`El registro con identificador "${indiceRegistro}", se eliminó correctamente.\n`);
@@ -299,7 +385,16 @@ while (indiceArgumento < process.argv.length)
                     console.error (`Se produjo un error al eliminar el registro con identificador "${indiceRegistro}".`);
                     process.exit (1);
                 }
-                const respuesta = await fetch ('https://www.luislopez.com.ar:3000/api/productos');
+                let respuesta = {};
+                try
+                {
+                    respuesta = await fetch ('https://www.luislopez.com.ar:3000/api/productos');
+                }
+                catch (error)
+                {
+                    console.error (`No se logró comunicación con la API para obtener los productos restantes luego de la eliminación solicitada. Probáblemante la API no esté operando. Contacte al servicio técnico. Error: "${error.message}".`);
+                    process.exit (1);
+                }
                 const jsonTodoV = await respuesta.json();
                 const productos = jsonTodoV.contenido;
                 console.table(productos);

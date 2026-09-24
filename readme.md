@@ -84,6 +84,63 @@ process.exit(0);
 | U | Update | Actualizar | PUT / PATCH | UPDATE | Modifica los datos de un registro ya existente. |
 | D | Delete | Eliminar | DELETE | DELETE | Borra un registro permanentemente de la tabla. |
 
+## Modo de uso
+
+El proyecto consiste en 2 cuerposo principales:
+
+1. API
+2. productos
+
+### API
+
+Se trata de la interface entre el programa de usuario y la pseudo-persistencia de los productos.
+
+Recibe comunicaciones desde la red que las realiza el programa de usuario, que en este caso es un programa escrito en JavaScript, administrado por línea de comandos, en el backend con Node.Js. que se encarga de administrar el CRUD de productos de un supuesto supermercado.
+
+La API debe permanecer en ejecución para poder ser empleado el administrador de esta API. Para ponerlo en ejecución, en mi caso ejecuto los siguientes 2 comandos en bash:
+
+~~~bash
+cd /home/llopez/Público/talentoTechCABAminEducacion/nodeJs/preEntrega/api/
+npn run start # o "npm run monitor" en el caso de contar con el paquete "node monitor" (nodemon) instalado en el sistema, que es una de las dependencias de desarrollo especificadas en package.json
+~~~
+
+### productos
+
+Es un programa escrito en Javascript, que consume la API para administrar los productos de un supuesto supermercado.
+
+El modo de empleo se puede consultar en el mismo programa administrador, de la siguiente forma:
+
+~~~bash
+./productos GET products
+./productos GET products/23
+./productos POST products Yogurt\ bebible\ frutilla\ 1L Lácteos 2.5 85 La\ Serenísima
+./productos PUT products/25554 Yogurt\ bebible\ frutilla\ 1l Lácteos 2.5 85 La\ Serenísima
+./productos DELETE products/25554
+~~~
+
+Para:
+
+1. Obtener el listado de todos los productos.
+2. Obtener un producto particular, en este caso, el que posee el identificador de registro 23.
+3. Dar de alta un producto. En este ejemplo, el que lleva por nombre "Yogurt bebible frutilla 1L", de la categoria "Lácteos", cuyo precio es 2.5, tiene un stock de 85 unidades y es de marca "La Serenísima".
+4. Modificar un producto cualquiera. En este ejemplo, el producto recién ingresado, solo se pasa la "L" de litro a minúscula. Tener en cuenta que para obtener el identificador del producto, se puede solicitar el listado completo de productos.
+5. Eliminar un producto cualquiera por su identificador de registro.
+
+Respectivamente.
+
+Se puede obtener la ayuda del programa helper "productos", ejecutando en bash:
+
+~~~bash
+cd /home/llopez/Público/talentoTechCABAminEducacion/nodeJs/preEntrega/
+./productos -h
+~~~
+
+Tener en cuenta que el programa "productos" es solo un pequeño helper, primero, antes de ejecutarlo, se debe editar y establecer la ruta del desarrarrollo en Javascript de "tst/index.js", correctamente a donde usted haya descargado esta utilidad. En mi caso:
+
+~~~path
+/home/llopez/Público/talentoTechCABAminEducacion/nodeJs/preEntrega/
+~~~
+
 ## Preguntas
 
 La especificación de la consigna de la pre-entrega, o requerimientos del proyecto, es contradictoria o inconsistente, indica claramente "Queremos un entorno limpio y profesional", y luego solicita varios comandos:

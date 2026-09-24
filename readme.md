@@ -177,3 +177,11 @@ Estoy viendo otros problemas en los requisitos:
 2. Pregunta con respuesta corta, "si" o "no". ¿Por qué falta el verbo html PUT o PATCH? ¿Cómo se supone que se debería poder modificar un producto? En mi caso lo implementé, ¿hay algún problema que me haya tomado esta libertad?
 3. Intercambios vía JSON: dado que el primer requerimiento es un GET products, implicaría que la API envie mucha información por red, para que la ejecución sea profesional, eficiente y única. Este intercambio es limitado, por ejemplo, a 100 kilobytes. En mi caso, no implementé paginación de red, ¿es obligatorio implementar alguna forma de paginación de red en la API, dado que se solicita un software profesional?
 4. Seguridad: ¿Cuál es la mejor manera de implementarla en la API? Lo primero que se me ocurre es implementar un "POST acceso nombre-de-usuario md5-o-SHA-del-password", que me devuelva un token temporal, para poder usar en productos, y que al hacer uso de productos, reseteo la caducidad del token.
+5. ¿Cómo voy realizando el 50% exacto del curso y tengo el 86% de avance en el aula virtual, las clases 9 a 16 y el proyecto final bloqueados? No entiendo, el porcentaje de avance en el aula virtual, debería ser similar al porcentaje del curso realizado.
+6. En un proyecto, relativamente grande, que administre al menos 10 APIs, convendría dividir la lógica del código en capas, al menos 3:
+
+* Presentación
+* Lógica de negocios
+* Acceso a datos
+
+¿Vemos la división en capas de una solución para back-end en el curso de Node.Js?

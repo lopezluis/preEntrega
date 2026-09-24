@@ -86,7 +86,7 @@ process.exit(0);
 
 ## Modo de uso
 
-El proyecto consiste en 2 cuerposo principales:
+El proyecto consiste en 2 cuerpos principales:
 
 1. API
 2. productos
@@ -108,7 +108,7 @@ npn run start # o "npm run monitor" en el caso de contar con el paquete "node mo
 
 Es un programa escrito en Javascript, que consume la API para administrar los productos de un supuesto supermercado.
 
-El modo de empleo se puede consultar en el mismo programa administrador, de la siguiente forma:
+El modo de empleo se puede consultar en el mismo programa administrador, con el comando en bash **./productos -h**, que responderá los principales parámetros eentre los que se encuentran los siguientes:
 
 ~~~bash
 ./productos GET products
@@ -121,24 +121,41 @@ El modo de empleo se puede consultar en el mismo programa administrador, de la s
 Para:
 
 1. Obtener el listado de todos los productos.
-2. Obtener un producto particular, en este caso, el que posee el identificador de registro 23.
+2. Obtener un producto particular, en este ejemplo **./productos GET products/23**, el que posee el identificador de registro 23.
 3. Dar de alta un producto. En este ejemplo, el que lleva por nombre "Yogurt bebible frutilla 1L", de la categoria "Lácteos", cuyo precio es 2.5, tiene un stock de 85 unidades y es de marca "La Serenísima".
-4. Modificar un producto cualquiera. En este ejemplo, el producto recién ingresado, solo se pasa la "L" de litro a minúscula. Tener en cuenta que para obtener el identificador del producto, se puede solicitar el listado completo de productos.
+4. Modificar un producto cualquiera. En este ejemplo, el producto recién ingresado, solo se pasa la "L" de litro a minúscula. Tener en cuenta que para obtener el identificador del producto, se puede solicitar el listado completo de productos con **./productos GET products**.
 5. Eliminar un producto cualquiera por su identificador de registro.
 
 Respectivamente.
 
-Se puede obtener la ayuda del programa helper "productos", ejecutando en bash:
+Se puede obtener la ayuda de este programa helper "productos", ejecutando en bash:
 
 ~~~bash
 cd /home/llopez/Público/talentoTechCABAminEducacion/nodeJs/preEntrega/
 ./productos -h
 ~~~
 
-Tener en cuenta que el programa "productos" es solo un pequeño helper, primero, antes de ejecutarlo, se debe editar y establecer la ruta del desarrarrollo en Javascript de "tst/index.js", correctamente a donde usted haya descargado esta utilidad. En mi caso:
+Tener en cuenta que el programa "productos" es solo un pequeño helper, primero, antes de ejecutarlo, se debe editar y establecer la ruta del desarrarrollo en Javascript de "tst/index.js", correctamente a donde usted haya descargado esta utilidad, o en su defecto, establecerla relativa, de la siguiente forma:
 
-~~~path
-/home/llopez/Público/talentoTechCABAminEducacion/nodeJs/preEntrega/
+~~~bashScript
+#!/usr/bin/bash
+/usr/bin/node tst/index.js "$@"
+exit 0
+~~~
+
+En cuyo caso requeriría, previo a la ejecución del script, realizar el **cd** de la siguiente forma:
+
+~~~bash
+cd /home/llopez/Público/talentoTechCABAminEducacion/nodeJs/preEntrega/
+./productos <parámetros obligatorios>
+~~~
+
+En mi caso, lo dejo como ruta absoluta, de la siguiente forma:
+
+~~~bashScript
+#!/usr/bin/bash
+/usr/bin/node /home/llopez/Público/talentoTechCABAminEducacion/nodeJs/preEntrega/tst/index.js "$@"
+exit 0
 ~~~
 
 ## Preguntas

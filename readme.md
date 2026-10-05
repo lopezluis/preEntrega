@@ -86,27 +86,13 @@ process.exit(0);
 
 ## Modo de uso
 
-El proyecto consiste en 2 cuerpos principales:
+El proyecto consiste en un único cuerpo principal:
 
-1. API
-2. productos
-
-### API
-
-Se trata de la interface entre el programa de usuario y la pseudo-persistencia de los productos.
-
-Recibe comunicaciones desde la red que las realiza el programa de usuario, que en este caso es un programa escrito en JavaScript, administrado por línea de comandos, en el backend con Node.Js. que se encarga de administrar el CRUD de productos de un supuesto supermercado.
-
-La API debe permanecer en ejecución para poder ser empleado el administrador de esta API. Para ponerlo en ejecución, en mi caso ejecuto los siguientes 2 comandos en bash:
-
-~~~bash
-cd /home/llopez/Público/talentoTechCABAminEducacion/nodeJs/preEntrega/api/
-npn run start # o "npm run monitor" en el caso de contar con el paquete "node monitor" (nodemon) instalado en el sistema, que es una de las dependencias de desarrollo especificadas en package.json
-~~~
+1. productos
 
 ### productos
 
-Es un programa escrito en Javascript, que consume la API para administrar los productos de un supuesto supermercado.
+Es un programa escrito en Javascript, que consume la API "https://fakestoreapi.com/products" para administrar los productos de un supuesto comercio.
 
 El modo de empleo se puede consultar en el mismo programa administrador, con el comando en bash **./productos -h**, que responderá los principales parámetros eentre los que se encuentran los siguientes:
 

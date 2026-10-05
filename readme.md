@@ -86,45 +86,29 @@ process.exit(0);
 
 ## Modo de uso
 
-El proyecto consiste en 2 cuerpos principales:
+El proyecto consiste en un cuerpo principal:
 
-1. API
-2. productos
-
-### API
-
-Se trata de la interface entre el programa de usuario y la pseudo-persistencia de los productos.
-
-Recibe comunicaciones desde la red que las realiza el programa de usuario, que en este caso es un programa escrito en JavaScript, administrado por línea de comandos, en el backend con Node.Js. que se encarga de administrar el CRUD de productos de un supuesto supermercado.
-
-La API debe permanecer en ejecución para poder ser empleado el administrador de esta API. Para ponerlo en ejecución, en mi caso ejecuto los siguientes 2 comandos en bash:
-
-~~~bash
-cd /home/llopez/Público/talentoTechCABAminEducacion/nodeJs/preEntrega/api/
-npn run start # o "npm run monitor" en el caso de contar con el paquete "node monitor" (nodemon) instalado en el sistema, que es una de las dependencias de desarrollo especificadas en package.json
-~~~
+1. productos
 
 ### productos
 
-Es un programa escrito en Javascript, que consume la API para administrar los productos de un supuesto supermercado.
+Es un programa escrito en Javascript, que consume la API https://dummyjson.com/products para administrar los productos de un supuesto comercio.
 
 El modo de empleo se puede consultar en el mismo programa administrador, con el comando en bash **./productos -h**, que responderá los principales parámetros eentre los que se encuentran los siguientes:
 
 ~~~bash
 ./productos GET products
 ./productos GET products/23
-./productos POST products Yogurt\ bebible\ frutilla\ 1L Lácteos 2.5 85 La\ Serenísima
-./productos PUT products/25554 Yogurt\ bebible\ frutilla\ 1l Lácteos 2.5 85 La\ Serenísima
-./productos DELETE products/25554
+./productos POST products T-Shirt-Rex 300 remeras
+./productos DELETE products/30
 ~~~
 
 Para:
 
 1. Obtener el listado de todos los productos.
 2. Obtener un producto particular, en este ejemplo **./productos GET products/23**, el que posee el identificador de registro 23.
-3. Dar de alta un producto. En este ejemplo, el que lleva por nombre "Yogurt bebible frutilla 1L", de la categoria "Lácteos", cuyo precio es 2.5, tiene un stock de 85 unidades y es de marca "La Serenísima".
-4. Modificar un producto cualquiera. En este ejemplo, el producto recién ingresado, solo se pasa la "L" de litro a minúscula. Tener en cuenta que para obtener el identificador del producto, se puede solicitar el listado completo de productos con **./productos GET products**.
-5. Eliminar un producto cualquiera por su identificador de registro.
+3. Dar de alta un producto. En este ejemplo, el que lleva por nombre "T-Shirt-Rex", cuyo precio es 300 y es de la categoría "remeras".
+4. Eliminar un producto cualquiera por su identificador de registro.
 
 Respectivamente.
 
@@ -135,13 +119,7 @@ cd /home/llopez/Público/talentoTechCABAminEducacion/nodeJs/preEntrega/
 ./productos -h
 ~~~
 
-Tener en cuenta que el programa "productos" es solo un pequeño helper, primero, antes de ejecutarlo, se debe editar y establecer la ruta del desarrarrollo en Javascript de "tst/index.js", correctamente a donde usted haya descargado esta utilidad, o en su defecto, establecerla relativa, de la siguiente forma:
-
-~~~bashScript
-#!/usr/bin/bash
-/usr/bin/node tst/index.js "$@"
-exit 0
-~~~
+Tener en cuenta que el programa "productos" es solo un pequeño helper, para no tener que escribir 'npm run start POST products T-Shirt-Rex 300 remeras', simplemente escribimos './productos POST products T-Shirt-Rex 300 remeras'.
 
 En cuyo caso requeriría, previo a la ejecución del script, realizar el **cd** de la siguiente forma:
 
@@ -185,3 +163,5 @@ Estoy viendo otros problemas en los requisitos:
 * Acceso a datos
 
 ¿Vemos la división en capas de una solución para back-end en el curso de Node.Js?
+
+Finalmente luego de la corrección, re-escribí el proyecto para que se ejuste a rajatabla al enunciado planteado.

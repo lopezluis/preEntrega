@@ -113,18 +113,16 @@ El modo de empleo se puede consultar en el mismo programa administrador, con el 
 ~~~bash
 ./productos GET products
 ./productos GET products/23
-./productos POST products Yogurt\ bebible\ frutilla\ 1L Lácteos 2.5 85 La\ Serenísima
-./productos PUT products/25554 Yogurt\ bebible\ frutilla\ 1l Lácteos 2.5 85 La\ Serenísima
-./productos DELETE products/25554
+./productos POST products T-Shirt-Rex 300 remeras
+./productos DELETE products/30
 ~~~
 
 Para:
 
 1. Obtener el listado de todos los productos.
 2. Obtener un producto particular, en este ejemplo **./productos GET products/23**, el que posee el identificador de registro 23.
-3. Dar de alta un producto. En este ejemplo, el que lleva por nombre "Yogurt bebible frutilla 1L", de la categoria "Lácteos", cuyo precio es 2.5, tiene un stock de 85 unidades y es de marca "La Serenísima".
-4. Modificar un producto cualquiera. En este ejemplo, el producto recién ingresado, solo se pasa la "L" de litro a minúscula. Tener en cuenta que para obtener el identificador del producto, se puede solicitar el listado completo de productos con **./productos GET products**.
-5. Eliminar un producto cualquiera por su identificador de registro.
+3. Dar de alta un producto. En este ejemplo, el que lleva por nombre "T-Shirt-Rex", cuyo precio es 300 y es de la categoria "remeras".
+4. Eliminar un producto cualquiera por su identificador de registro. En este caso eliminamos el producto con id 30.
 
 Respectivamente.
 
@@ -135,7 +133,7 @@ cd /home/llopez/Público/talentoTechCABAminEducacion/nodeJs/preEntrega/
 ./productos -h
 ~~~
 
-Tener en cuenta que el programa "productos" es solo un pequeño helper, primero, antes de ejecutarlo, se debe editar y establecer la ruta del desarrarrollo en Javascript de "tst/index.js", correctamente a donde usted haya descargado esta utilidad, o en su defecto, establecerla relativa, de la siguiente forma:
+Tener en cuenta que el programa "productos" es solo un pequeño helper, que simplemente ahorra la necesidad de escribir por línea de comandos el inicio del comando "npm run start", en su lugar solo escribimos "./productos GET products" o el que necesitemos como está indicado en el apartado "productos":
 
 ~~~bashScript
 #!/usr/bin/bash
@@ -185,3 +183,5 @@ Estoy viendo otros problemas en los requisitos:
 * Acceso a datos
 
 ¿Vemos la división en capas de una solución para back-end en el curso de Node.Js?
+
+He reescrito el trabajo pre-entrega, luego de la corrección inicial.
